@@ -4,7 +4,7 @@ Chrome extension for automatically claiming Twitch channel points and drops.
 
 ## Quick Start
 * Enable Developer mode in `chrome://extensions/`
-* Load unpacked extension option - Point it to your directory containing repo files
+* Load unpacked extension - Point it to your downloaded release file
 * Visit Twitch - claims will start automatically
 * For Drops - visit Drops Inventory page
 
