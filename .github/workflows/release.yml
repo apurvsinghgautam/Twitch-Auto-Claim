@@ -1,0 +1,41 @@
+name: Create Release Archive
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on version tags
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create extension directory
+        run: |
+          mkdir twitch-auto-claim
+          cp *.js twitch-auto-claim/
+          cp *.json twitch-auto-claim/
+          cp *.html twitch-auto-claim/
+          cp *.png twitch-auto-claim/ || true
+
+      - name: Create ZIP archive
+        run: zip -r twitch-auto-claim-${{ steps.get_version.outputs.VERSION }}.zip twitch-auto-claim
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: twitch-auto-claim-${{ steps.get_version.outputs.VERSION }}.zip
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
