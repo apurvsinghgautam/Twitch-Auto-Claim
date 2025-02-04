@@ -1,4 +1,4 @@
-# Twitch Auto-Claim Extension
+#Twitch Auto-Claim Extension
 
 Chrome extension for automatically claiming Twitch channel points and drops.
 
