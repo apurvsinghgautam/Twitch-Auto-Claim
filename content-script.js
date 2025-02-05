@@ -3,22 +3,24 @@
 // Set a flag to control auto-claim behavior (default is enabled)
 window.autoClaimEnabled = true;
 
-// Log an event to localStorage
+// Helper function to append an event to the shared history using chrome.storage.local
 function logEvent(type, message) {
   const historyKey = "twitchAutoClaimHistory";
   const event = {
-    type, // e.g., "drop" or "points"
-    message,
+    type,       // "points" or "drop"
+    message,    // e.g. "Channel points claimed!" or "Drop claimed!"
     timestamp: new Date().toISOString()
   };
-  let history = [];
-  try {
-    history = JSON.parse(localStorage.getItem(historyKey)) || [];
-  } catch (e) {
-    history = [];
-  }
-  history.push(event);
-  localStorage.setItem(historyKey, JSON.stringify(history));
+
+  // Retrieve current history from chrome.storage.local
+  chrome.storage.local.get([historyKey], function(result) {
+    let history = result[historyKey] || [];
+    history.push(event);
+    // Save the updated history
+    chrome.storage.local.set({ [historyKey]: history }, function() {
+      console.log("Logged event:", event);
+    });
+  });
 }
 
 function autoClaim() {
@@ -31,6 +33,7 @@ function autoClaim() {
   if (pointsButton) {
     pointsButton.click();
     console.log("Channel points claimed!");
+    logEvent("points", "Channel points claimed!");
   }
   
   // Selector for the drops claim button
@@ -41,6 +44,7 @@ function autoClaim() {
     claimDivs.forEach(div => {
       div.click();
       console.log("Drop claimed!");
+      logEvent("drop", "Drop claimed!");
     });
   }
 }

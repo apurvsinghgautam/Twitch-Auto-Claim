@@ -5,7 +5,8 @@
   "description": "Automatically claim Twitch channel points and drops.",
   "permissions": [
     "scripting",
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "host_permissions": [
     "*://*.twitch.tv/*"

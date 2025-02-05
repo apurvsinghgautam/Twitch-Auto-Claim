@@ -4,16 +4,68 @@
   <meta charset="UTF-8">
   <title>Twitch Auto-Claim History</title>
   <style>
-    body { font-family: sans-serif; margin: 10px; }
-    .log-entry { margin-bottom: 5px; padding: 5px; border-bottom: 1px solid #ccc; }
-    .timestamp { color: gray; font-size: 0.8em; }
-    .type { font-weight: bold; margin-right: 5px; }
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #4a90e2;
+      margin-bottom: 20px;
+    }
+    .history-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .log-entry {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .log-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .log-type {
+      font-weight: bold;
+      color: #4a90e2;
+      margin-bottom: 5px;
+    }
+    .log-timestamp {
+      font-size: 0.85em;
+      color: #888;
+    }
+    .clear-button {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 20px auto 0;
+      display: block;
+      font-size: 1em;
+    }
+    .no-history {
+      text-align: center;
+      font-style: italic;
+      color: #888;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>Auto-Claim History</h1>
-  <div id="history"></div>
-  <button id="clearHistory">Clear History</button>
+  <div class="history-container" id="history"></div>
+  <button id="clearHistory" class="clear-button">Clear History</button>
   <script src="popup.js"></script>
 </body>
 </html>
